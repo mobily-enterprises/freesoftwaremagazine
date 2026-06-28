@@ -288,6 +288,17 @@
   text-decoration: none;
 }
 
+.article-card-summary {
+  color: #526b7c;
+  display: -webkit-box;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  margin: 1.05rem 0 0;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
 .issue-card .card-title,
 .book-card-title {
   font-size: 1.02rem;

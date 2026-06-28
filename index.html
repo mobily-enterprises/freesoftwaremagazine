@@ -7,11 +7,11 @@ title: Free Software Magazine
 
 {% include article_section.html title="All" articles=article_pages limit=10 %}
 
-{% assign section_articles = article_pages | where: "section", "opinions" %}
+{% assign section_articles = article_pages | where: "section", "hacking" %}
 {% include article_section.html title="Development" articles=section_articles limit=4 %}
 
-{% assign section_articles = article_pages | where: "section", "hacking" %}
-{% include article_section.html title="Hacking" articles=section_articles limit=4 %}
+{% assign section_articles = article_pages | where: "section", "opinions" %}
+{% include article_section.html title="Opinions" articles=section_articles limit=4 %}
 
 {% assign section_articles = article_pages | where: "section", "end_users" %}
 {% include article_section.html title="End Users" articles=section_articles limit=4 %}

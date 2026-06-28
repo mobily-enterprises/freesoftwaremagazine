@@ -44,8 +44,68 @@ module FsmContentTransforms
 
   def summary_for(raw_content)
     base = transform(raw_content).split("<!--break-->").first.to_s
-    stripped = base.gsub(%r{</?[^>]+(>|$)}, "")
+    stripped = summary_source(base).gsub(/\[([^\]]+)\]\([^)]+\)/, "\\1")
     "#{stripped[0, 200]} ..."
+  end
+
+  def summary_html_for(raw_content)
+    source = summary_source(transform(raw_content).split("<!--break-->").first.to_s)
+    return "" if source.empty?
+
+    html = +""
+    index = 0
+    visible_length = 0
+    truncated = false
+    limit = 200
+
+    source.to_enum(:scan, /\[([^\]]+)\]\(([^)\s]+)(?:\s+["'][^)]*["'])?\)/).each do
+      match = Regexp.last_match
+      plain = source[index...match.begin(0)].to_s
+      visible_length, truncated = append_summary_text(html, plain, visible_length, limit)
+      break if truncated
+
+      link_text = match[1].to_s
+      href = match[2].to_s
+      remaining = limit - visible_length
+      if link_text.length <= remaining
+        html << %(<a href="#{CGI.escapeHTML(href)}">#{CGI.escapeHTML(link_text)}</a>)
+        visible_length += link_text.length
+      else
+        visible_length, truncated = append_summary_text(html, link_text, visible_length, limit)
+        break
+      end
+
+      index = match.end(0)
+    end
+
+    unless truncated
+      visible_length, truncated = append_summary_text(html, source[index..].to_s, visible_length, limit)
+    end
+
+    html << " ..." if truncated || visible_length < source.gsub(/\[([^\]]+)\]\([^)]+\)/, "\\1").length
+    html.strip
+  end
+
+  def summary_source(content)
+    content
+      .gsub(%r{</?[^>]+(>|$)}, " ")
+      .gsub(/\s+/, " ")
+      .strip
+  end
+
+  def append_summary_text(html, text, visible_length, limit)
+    return [visible_length, false] if text.empty?
+
+    remaining = limit - visible_length
+    return [visible_length, true] if remaining <= 0
+
+    if text.length > remaining
+      html << CGI.escapeHTML(text[0, remaining])
+      [limit, true]
+    else
+      html << CGI.escapeHTML(text)
+      [visible_length + text.length, false]
+    end
   end
 
   # Preferred author-facing syntax is normalized into FSM markers.

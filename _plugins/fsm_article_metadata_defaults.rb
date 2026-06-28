@@ -52,10 +52,27 @@ module FsmArticleMetadataDefaults
       FsmContentTransforms.summary_for(raw).to_s.strip
     else
       base = raw.split("<!--break-->").first.to_s
-      stripped = base.gsub(%r{</?[^>]+(>|$)}, "").gsub(/\s+/, " ").strip
+      stripped = base
+                 .gsub(/\[([^\]]+)\]\([^)]+\)/, "\\1")
+                 .gsub(%r{</?[^>]+(>|$)}, " ")
+                 .gsub(/\s+/, " ")
+                 .strip
       return "" if stripped.empty?
 
       "#{stripped[0, 200]} ..."
+    end
+  rescue StandardError
+    ""
+  end
+
+  def fallback_summary_html(page)
+    raw = page.content.to_s
+    return "" if raw.strip.empty?
+
+    if defined?(FsmContentTransforms)
+      FsmContentTransforms.summary_html_for(raw).to_s.strip
+    else
+      fallback_summary(page)
     end
   rescue StandardError
     ""
@@ -101,6 +118,11 @@ module Jekyll
         end
         if !summary.empty? && FsmArticleMetadataDefaults.blank_value?(page.data["description"])
           page.data["description"] = summary
+        end
+
+        summary_html = FsmArticleMetadataDefaults.fallback_summary_html(page)
+        if !summary_html.empty? && FsmArticleMetadataDefaults.blank_value?(page.data["summary_html"])
+          page.data["summary_html"] = summary_html
         end
       end
 

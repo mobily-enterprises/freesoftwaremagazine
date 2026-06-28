@@ -39,6 +39,9 @@ npm run preview:no-live
 # Article-only fast preview without LiveReload
 npm run preview:no-live -- my_new_article_slug
 
+# Serve the already-built _site directory without regenerating
+npm run preview:static
+
 # Full project validation (build + checks)
 npm run check
 ```

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">A home computer serving a web site</title>
+  <desc id="desc">A simple illustration of a laptop publishing a web page to the internet using free software.</desc>
+  <rect width="1200" height="675" fill="#f5f8fb"/>
+  <rect x="70" y="88" width="1060" height="498" rx="34" fill="#ffffff" stroke="#c8dce8" stroke-width="6"/>
+  <rect x="120" y="138" width="430" height="270" rx="18" fill="#263746"/>
+  <rect x="148" y="168" width="374" height="210" rx="10" fill="#ffffff"/>
+  <rect x="176" y="196" width="142" height="24" rx="5" fill="#3e8ec0"/>
+  <rect x="176" y="242" width="294" height="16" rx="4" fill="#d4e4ee"/>
+  <rect x="176" y="276" width="242" height="16" rx="4" fill="#d4e4ee"/>
+  <rect x="176" y="310" width="316" height="16" rx="4" fill="#d4e4ee"/>
+  <rect x="176" y="346" width="104" height="22" rx="5" fill="#7bb66f"/>
+  <path d="M92 444h486l-42 56H134z" fill="#324758"/>
+  <path d="M168 500h332l25 35H143z" fill="#233442"/>
+  <circle cx="688" cy="292" r="74" fill="#e7f2f8" stroke="#3e8ec0" stroke-width="8"/>
+  <path d="M638 292h100M688 242c24 26 36 52 36 78M688 242c-24 26-36 52-36 78M628 292c33 12 88 12 120 0M628 292c33-12 88-12 120 0" fill="none" stroke="#3e8ec0" stroke-width="6" stroke-linecap="round"/>
+  <path d="M568 292h46" stroke="#7bb66f" stroke-width="10" stroke-linecap="round"/>
+  <path d="M764 292h58" stroke="#7bb66f" stroke-width="10" stroke-linecap="round"/>
+  <rect x="824" y="177" width="252" height="230" rx="16" fill="#263746"/>
+  <rect x="852" y="208" width="196" height="160" rx="8" fill="#ffffff"/>
+  <rect x="874" y="231" width="84" height="18" rx="4" fill="#3e8ec0"/>
+  <rect x="874" y="268" width="146" height="12" rx="3" fill="#d4e4ee"/>
+  <rect x="874" y="296" width="118" height="12" rx="3" fill="#d4e4ee"/>
+  <rect x="874" y="324" width="70" height="18" rx="4" fill="#7bb66f"/>
+  <path d="M885 407h130l16 45H869z" fill="#324758"/>
+  <text x="600" y="108" fill="#263746" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700" text-anchor="middle">Free Software, your web site, your computer</text>
+  <text x="600" y="622" fill="#557084" font-family="Arial, Helvetica, sans-serif" font-size="24" text-anchor="middle">Build it visually, publish it simply, keep control of it</text>
+</svg>

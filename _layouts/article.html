@@ -20,7 +20,11 @@
           {% for section in section_list %}
             {% assign section_name = section | strip %}
             {% if section_name != "" %}
-              <a href="/sections/{{ section_name | uri_escape }}">{{ section_name }}</a>
+              {% assign section_label = section_name | replace: "_", " " %}
+              {% if section_name == "hacking" %}
+                {% assign section_label = "Development" %}
+              {% endif %}
+              <a href="/sections/{{ section_name | uri_escape }}">{{ section_label }}</a>
             {% endif %}
           {% endfor %}
         {% endif %}

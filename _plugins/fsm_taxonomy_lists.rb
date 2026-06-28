@@ -158,6 +158,8 @@ module FsmTaxonomyLists
   def list_title_for(taxonomy_key, term, term_articles)
     case taxonomy_key
     when "sections"
+      return "Development" if term == "hacking"
+
       titleize(term.tr("_", " "))
     when "issues"
       if term.start_with?("issue_")

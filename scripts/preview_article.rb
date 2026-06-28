@@ -117,7 +117,11 @@ jekyll_pid = spawn(
 end
 
 server_ready = false
-120.times do
+poll_interval = 0.25
+readiness_timeout = slug ? 30 : 120
+readiness_attempts = (readiness_timeout / poll_interval).to_i
+
+readiness_attempts.times do
   begin
     response = Net::HTTP.get_response(URI("http://127.0.0.1:4000/"))
     if response.is_a?(Net::HTTPSuccess) || response.is_a?(Net::HTTPRedirection)
@@ -127,14 +131,14 @@ server_ready = false
   rescue StandardError
     nil
   end
-  sleep 0.25
+  sleep poll_interval
 end
 
 if server_ready
   open_url(url)
 else
-  warn "Jekyll server did not become ready quickly. Open manually: #{url}"
+  warn "Jekyll server did not become ready within #{readiness_timeout} seconds. Open manually: #{url}"
 end
 
-Process.wait(jekyll_pid)
-exit $CHILD_STATUS.exitstatus || 0
+_, status = Process.wait2(jekyll_pid)
+exit(status.exitstatus || (status.signaled? ? 128 + status.termsig : 1))

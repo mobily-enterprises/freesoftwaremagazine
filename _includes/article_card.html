@@ -11,6 +11,9 @@
 {% assign date_value = article.published %}
 {% assign sections = article.section | default: "" | split: "," %}
 {% assign authors = article.authors | default: "" | split: "," %}
+{% assign show_summary = include.show_summary | default: false %}
+{% assign summary = article.summary | default: "" | strip_html | strip_newlines | strip %}
+{% assign summary_html = article.summary_html | default: "" | strip %}
 
 <div class="card article-card">
   <a href="{{ url }}">
@@ -24,6 +27,9 @@
         {% for section in sections %}
           {% assign section_slug = section | strip %}
           {% assign section_label = section_slug | replace: "_", " " %}
+          {% if section_slug == "hacking" %}
+            {% assign section_label = "Development" %}
+          {% endif %}
           {% if section_slug != "" %}
             <a href="/sections/{{ section_slug | uri_escape }}">{{ section_label }}</a>
           {% endif %}
@@ -36,6 +42,12 @@
         {{ article.title }}
       </a>
     </h5>
+
+    {% if show_summary and summary_html != "" %}
+      <p class="article-card-summary">{{ summary_html }}</p>
+    {% elsif show_summary and summary != "" %}
+      <p class="article-card-summary">{{ summary }}</p>
+    {% endif %}
 
     <p class="article-card-meta">
       by

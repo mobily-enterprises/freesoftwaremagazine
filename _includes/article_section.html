@@ -5,7 +5,7 @@
 <div class="row">
   {% for article in section_articles limit: include.limit %}
     <div class="col-sm-6 col-lg-4 mb-4">
-      {% include article_card.html article=article %}
+      {% include article_card.html article=article show_summary=true %}
     </div>
   {% endfor %}
 </div>

@@ -68,7 +68,11 @@
   <div class="row {{ page.list_name }}">
     {% for article in page.elements_in_this_page %}
       <div class="col-sm-6 col-lg-4 mb-4">
-        {% include article_card.html article=article %}
+        {% assign show_summary = false %}
+        {% if page.list_name == "sections" %}
+          {% assign show_summary = true %}
+        {% endif %}
+        {% include article_card.html article=article show_summary=show_summary %}
       </div>
     {% endfor %}
   </div>
